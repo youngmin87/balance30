@@ -76,17 +76,17 @@ p { margin: 0; }
 .bar i { display: block; height: 100%; background: var(--a); transition: width .25s ease; }
 .vs { display: flex; flex-direction: column; gap: 10px; }
 .pick {
-  display: grid; grid-template-columns: 96px 1fr; align-items: center; gap: 14px;
+  display: grid; grid-template-columns: 108px 1fr; align-items: center; gap: 14px;
   width: 100%; text-align: left; padding: 14px 14px 14px 12px; min-height: 120px; border-radius: 16px; cursor: pointer;
   font-family: var(--font-body); font-size: 1.2rem; line-height: 1.45; color: var(--fg);
   border: 2px solid transparent; transition: transform .12s ease, background .15s ease;
 }
 .pick .tag { position: absolute; top: -8px; left: -8px; font-family: var(--font-display); font-size: 1.15rem; width: 32px; height: 32px; border-radius: 50%; display: grid; place-items: center; color: var(--on-accent); }
 /* 그림 칸: 큰 그림 하나 + 작은 그림 하나 + 짧은 글 */
-.pic { position: relative; width: 96px; min-height: 96px; box-sizing: border-box; padding: 10px 4px 8px; border-radius: 14px; background: var(--surface); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; }
-.pic .em { font-size: 40px; line-height: 1.1; white-space: nowrap; }
-.pic .em small { font-size: 24px; margin-left: 2px; }
-.pic .cap { font-family: var(--font-display); font-size: 0.95rem; line-height: 1.2; text-align: center; }
+.pic { position: relative; width: 108px; min-height: 108px; box-sizing: border-box; padding: 10px 4px 8px; border-radius: 14px; background: var(--surface); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; }
+.pic .em { font-size: 48px; line-height: 1.1; white-space: nowrap; }
+.pic .em small { font-size: 28px; margin-left: 2px; }
+.pic .cap { font-family: var(--font-display); font-size: 1.05rem; line-height: 1.2; text-align: center; }
 .pick.a .pic .cap { color: var(--a); }
 .pick.b .pic .cap { color: var(--b); }
 .pick .txt { min-width: 0; }

@@ -76,12 +76,20 @@ p { margin: 0; }
 .bar i { display: block; height: 100%; background: var(--a); transition: width .25s ease; }
 .vs { display: flex; flex-direction: column; gap: 10px; }
 .pick {
-  display: grid; grid-template-columns: 52px 1fr; align-items: center; gap: 14px;
-  width: 100%; text-align: left; padding: 18px 16px; min-height: 104px; border-radius: 16px; cursor: pointer;
+  display: grid; grid-template-columns: 96px 1fr; align-items: center; gap: 14px;
+  width: 100%; text-align: left; padding: 14px 14px 14px 12px; min-height: 120px; border-radius: 16px; cursor: pointer;
   font-family: var(--font-body); font-size: 1.2rem; line-height: 1.45; color: var(--fg);
   border: 2px solid transparent; transition: transform .12s ease, background .15s ease;
 }
-.pick .tag { font-family: var(--font-display); font-size: 2rem; width: 52px; height: 52px; border-radius: 50%; display: grid; place-items: center; color: var(--on-accent); }
+.pick .tag { position: absolute; top: -8px; left: -8px; font-family: var(--font-display); font-size: 1.15rem; width: 32px; height: 32px; border-radius: 50%; display: grid; place-items: center; color: var(--on-accent); }
+/* 그림 칸: 큰 그림 하나 + 작은 그림 하나 + 짧은 글 */
+.pic { position: relative; width: 96px; min-height: 96px; box-sizing: border-box; padding: 10px 4px 8px; border-radius: 14px; background: var(--surface); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; }
+.pic .em { font-size: 40px; line-height: 1.1; white-space: nowrap; }
+.pic .em small { font-size: 24px; margin-left: 2px; }
+.pic .cap { font-family: var(--font-display); font-size: 0.95rem; line-height: 1.2; text-align: center; }
+.pick.a .pic .cap { color: var(--a); }
+.pick.b .pic .cap { color: var(--b); }
+.pick .txt { min-width: 0; }
 .pick.a { background: var(--a-soft); }
 .pick.a .tag { background: var(--a); }
 .pick.b { background: var(--b-soft); }
@@ -98,8 +106,6 @@ p { margin: 0; }
 .nav { display: grid; grid-template-columns: 1fr 2fr; gap: 10px; }
 
 /* 마지막 화면 */
-blockquote { margin: 0; padding: 14px 16px; border-left: 4px solid var(--a); background: var(--a-soft); border-radius: 0 12px 12px 0; display: flex; flex-direction: column; gap: 6px; }
-blockquote cite { font-style: normal; color: var(--muted); font-size: 0.9rem; }
 label { font-size: 0.95rem; color: var(--muted); display: block; margin-bottom: 4px; }
 input, textarea {
   width: 100%; box-sizing: border-box; font-family: var(--font-body); font-size: 1.05rem; color: var(--fg);
@@ -145,7 +151,7 @@ textarea { min-height: 84px; resize: vertical; }
     <div style="display:flex;flex-direction:column;gap:6px">
       <p class="eyebrow">셀모임 · 40~50대 · 신앙생활 30~40년 차</p>
       <h1>30년 차 신앙 밸런스게임</h1>
-      <p style="color:var(--muted)">문항 19개, 3라운드, 그리고 예수님의 밸런스게임 하나.</p>
+      <p style="color:var(--muted)">문항 19개, 3라운드, 그리고 내 마음 적기.</p>
     </div>
     <div class="card">
       <h2>규칙</h2>
@@ -173,9 +179,9 @@ textarea { min-height: 84px; resize: vertical; }
     <div class="bar"><i id="qBar"></i></div>
     <p class="eyebrow" id="qSub"></p>
     <div class="vs">
-      <button class="pick a" id="pickA" type="button"><span class="tag">A</span><span id="textA"></span></button>
+      <button class="pick a" id="pickA" type="button"><span class="pic" id="picA" aria-hidden="true"></span><span class="txt" id="textA"></span></button>
       <div class="or">VS</div>
-      <button class="pick b" id="pickB" type="button"><span class="tag">B</span><span id="textB"></span></button>
+      <button class="pick b" id="pickB" type="button"><span class="pic" id="picB" aria-hidden="true"></span><span class="txt" id="textB"></span></button>
     </div>
     <p class="note" id="qNote" hidden></p>
     <div class="reveal" id="reveal" hidden>
@@ -197,18 +203,9 @@ textarea { min-height: 84px; resize: vertical; }
   <section id="end" class="wrap" hidden>
     <div style="display:flex;flex-direction:column;gap:6px">
       <p class="eyebrow">마지막</p>
-      <h1>예수님의 밸런스게임</h1>
-      <p>오늘 "둘 다"를 금지했듯이, 예수님도 가운데 자리를 주지 않으셨습니다. 이번 주일 설교 본문 바로 다음 절입니다.</p>
+      <h1>내 마음 적기</h1>
+      <p>게임은 여기까지입니다. 아래 칸을 채우고 인도자에게 보내 주세요.</p>
     </div>
-    <blockquote>
-      <p>나와 함께 아니하는 자는 나를 반대하는 자요 나와 함께 모으지 아니하는 자는 헤치는 자니라</p>
-      <cite>마태복음 12:30</cite>
-    </blockquote>
-    <blockquote>
-      <p>너희가 어느 때까지 둘 사이에서 머뭇머뭇 하려느냐 … 하니 백성이 말 한마디도 대답하지 아니하는지라</p>
-      <cite>열왕기상 18:21</cite>
-    </blockquote>
-    <p>게임에서는 3초 만에 손가락을 폈는데, 진짜 중요한 질문 앞에서는 우리도 그 백성처럼 아무 말을 못 할 때가 있습니다.</p>
 
     <div class="card">
       <h2>내가 머뭇거리는 이유</h2>
@@ -265,25 +262,25 @@ const ROUNDS = [
   { name: "3라운드", sub: "속마음 · 천천히 이야기해요" }
 ];
 const Q = [
-  { r: 0, a: "요나처럼 물고기 뱃속 3일", b: "다니엘처럼 사자굴 하룻밤" },
-  { r: 0, a: "광야에서 40년 동안 만나만 먹기", b: "세례 요한처럼 1년 동안 메뚜기와 석청만 먹기" },
-  { r: 0, a: "노아 방주에서 1년 동안 동물 똥 치우기", b: "시편 119편(176절)을 통째로 외우기" },
-  { r: 0, a: "베드로처럼 모두 앞에서 물에 빠지기", b: "삭개오처럼 나무 위에 숨었다가 들키기" },
-  { r: 0, a: "삼손처럼 평생 머리 못 자르기", b: "엘리사처럼 \"대머리야\" 놀림받기" },
-  { r: 1, a: "평생 대표기도 담당", b: "평생 주방 봉사 담당" },
-  { r: 1, a: "은혜는 넘치는데 1시간 반 설교", b: "깔끔한데 기억이 안 나는 20분 설교" },
-  { r: 1, a: "목사님 심방, 30분 전에 연락받기", b: "목사님 심방, 3주 전부터 날짜 확정" },
-  { r: 1, a: "평생 옛날 찬송가만 부르기", b: "평생 최신 CCM만 부르기" },
-  { r: 1, a: "내 대표기도 녹음을 교회 단톡방에 공유", b: "내 노래방 18번 영상을 교회 단톡방에 공유" },
-  { r: 1, a: "교회 행사 사회는 평생 내가", b: "교회 행사 뒷정리는 평생 내가" },
-  { r: 2, a: "모태신앙으로 태어나기", b: "어른이 되어 회심하기" },
-  { r: 2, a: "세상에 영향력 있는 미지근한 신앙", b: "세상과 동떨어진 뜨거운 신앙" },
-  { r: 2, a: "기도 응답은 바로 오는데 하나님이 멀게 느껴짐", b: "응답은 늦는데 하나님이 가깝게 느껴짐" },
-  { r: 2, a: "교회에서 다들 알아주는데 혼자서는 기도가 안 됨", b: "아무도 몰라주는데 골방 기도가 깊음" },
-  { r: 2, a: "30년 전 처음 믿을 때의 뜨거움", b: "지금 30년 차의 노련함", note: "지금 하나만 가질 수 있다면?" },
-  { r: 2, a: "내 장례식에서 \"교회 일 정말 많이 하신 분\" 소리 듣기", b: "내 장례식에서 \"참 따뜻한 분\" 소리 듣기" },
-  { r: 2, a: "자녀가 믿지 않는 사람과 행복한 결혼", b: "자녀가 믿는 사람과 불행한 결혼" },
-  { r: 2, a: "자녀가 교회는 열심히 다니는데 거짓말을 잘함", b: "자녀가 교회는 안 다니는데 정직함" }
+  { pa: "🐋|🙏|3일", pb: "🦁|🌙|하룻밤", r: 0, a: "요나처럼 물고기 뱃속 3일", b: "다니엘처럼 사자굴 하룻밤" },
+  { pa: "🫓|🏜️|40년", pb: "🦗|🍯|1년", r: 0, a: "광야에서 40년 동안 만나만 먹기", b: "세례 요한처럼 1년 동안 메뚜기와 석청만 먹기" },
+  { pa: "🚢|💩|1년", pb: "📖|🧠|176절", r: 0, a: "노아 방주에서 1년 동안 동물 똥 치우기", b: "시편 119편(176절)을 통째로 외우기" },
+  { pa: "🌊|😱|풍덩", pb: "🌳|🙈|들킴", r: 0, a: "베드로처럼 모두 앞에서 물에 빠지기", b: "삭개오처럼 나무 위에 숨었다가 들키기" },
+  { pa: "💇|🚫|평생", pb: "👨‍🦲|🤭|놀림", r: 0, a: "삼손처럼 평생 머리 못 자르기", b: "엘리사처럼 \"대머리야\" 놀림받기" },
+  { pa: "🎤|🙏|대표기도", pb: "🧑‍🍳|🍲|주방", r: 1, a: "평생 대표기도 담당", b: "평생 주방 봉사 담당" },
+  { pa: "⏰|😭|90분", pb: "🤔|❓|20분", r: 1, a: "은혜는 넘치는데 1시간 반 설교", b: "깔끔한데 기억이 안 나는 20분 설교" },
+  { pa: "📱|😱|30분 전", pb: "📅|✅|3주 전", r: 1, a: "목사님 심방, 30분 전에 연락받기", b: "목사님 심방, 3주 전부터 날짜 확정" },
+  { pa: "📕|🎹|찬송가", pb: "🎸|🥁|CCM", r: 1, a: "평생 옛날 찬송가만 부르기", b: "평생 최신 CCM만 부르기" },
+  { pa: "🎙️|🙏|기도 녹음", pb: "🎤|🕺|18번", r: 1, a: "내 대표기도 녹음을 교회 단톡방에 공유", b: "내 노래방 18번 영상을 교회 단톡방에 공유" },
+  { pa: "📢|🎉|사회", pb: "🧹|🪑|뒷정리", r: 1, a: "교회 행사 사회는 평생 내가", b: "교회 행사 뒷정리는 평생 내가" },
+  { pa: "👶|⛪|모태", pb: "🧑|✨|회심", r: 2, a: "모태신앙으로 태어나기", b: "어른이 되어 회심하기" },
+  { pa: "🌍|😐|미지근", pb: "🔥|🏝️|뜨거움", r: 2, a: "세상에 영향력 있는 미지근한 신앙", b: "세상과 동떨어진 뜨거운 신앙" },
+  { pa: "⚡|🌌|빠른 응답", pb: "🐢|🤗|늦은 응답", r: 2, a: "기도 응답은 바로 오는데 하나님이 멀게 느껴짐", b: "응답은 늦는데 하나님이 가깝게 느껴짐" },
+  { pa: "👏|😶|인정", pb: "🚪|🙏|골방", r: 2, a: "교회에서 다들 알아주는데 혼자서는 기도가 안 됨", b: "아무도 몰라주는데 골방 기도가 깊음" },
+  { pa: "🔥|🙌|첫사랑", pb: "🧭|😌|30년 차", r: 2, a: "30년 전 처음 믿을 때의 뜨거움", b: "지금 30년 차의 노련함", note: "지금 하나만 가질 수 있다면?" },
+  { pa: "💐|📋|교회 일", pb: "💐|❤️|따뜻함", r: 2, a: "내 장례식에서 \"교회 일 정말 많이 하신 분\" 소리 듣기", b: "내 장례식에서 \"참 따뜻한 분\" 소리 듣기" },
+  { pa: "💍|😊|행복", pb: "💍|😢|불행", r: 2, a: "자녀가 믿지 않는 사람과 행복한 결혼", b: "자녀가 믿는 사람과 불행한 결혼" },
+  { pa: "⛪|🤥|거짓말", pb: "🏠|👍|정직", r: 2, a: "자녀가 교회는 열심히 다니는데 거짓말을 잘함", b: "자녀가 교회는 안 다니는데 정직함" }
 ];
 const KEY = "balance30-v1";
 
@@ -317,6 +314,8 @@ function renderQ() {
   $("qBar").style.width = ((i + 1) / Q.length * 100) + "%";
   $("textA").textContent = q.a;
   $("textB").textContent = q.b;
+  drawPic($("picA"), "A", q.pa);
+  drawPic($("picB"), "B", q.pb);
   $("qNote").hidden = !q.note;
   $("qNote").textContent = q.note || "";
   const p = state.picks[i];
@@ -332,6 +331,16 @@ function renderQ() {
   const last = i === Q.length - 1;
   const nextRound = !last && Q[i + 1].r !== q.r;
   $("next").textContent = last ? "마지막으로" : nextRound ? ROUNDS[Q[i + 1].r].name + "로" : "다음 문항";
+}
+
+function drawPic(box, side, spec) {
+  const [main, small, cap] = (spec || "").split("|");
+  box.innerHTML = "";
+  const tag = document.createElement("span"); tag.className = "tag"; tag.textContent = side;
+  const em = document.createElement("span"); em.className = "em"; em.textContent = main || "";
+  if (small) { const sm = document.createElement("small"); sm.textContent = small; em.appendChild(sm); }
+  box.appendChild(tag); box.appendChild(em);
+  if (cap) { const c = document.createElement("span"); c.className = "cap"; c.textContent = cap; box.appendChild(c); }
 }
 
 function pick(side) {
@@ -358,7 +367,8 @@ function renderEnd() {
     const div = document.createElement("div");
     div.className = p || "";
     const head = document.createElement("b");
-    head.textContent = (i + 1) + "번 " + (p || "-");
+    const emo = p === "A" ? q.pa.split("|")[0] : p === "B" ? q.pb.split("|")[0] : "";
+    head.textContent = (i + 1) + "번 " + (p || "-") + (emo ? " " + emo : "");
     div.appendChild(head);
     div.appendChild(document.createTextNode(" " + (p === "A" ? q.a : p === "B" ? q.b : "고르지 않음")));
     mine.appendChild(div);
@@ -370,7 +380,7 @@ const jumps = [
   { label: "1라운드", sub: "1번부터 · 몸풀기", go: () => { state.idx = 0; show("q"); } },
   { label: "2라운드", sub: "6번부터 · 교회 생활", go: () => { state.idx = 5; show("q"); } },
   { label: "3라운드", sub: "12번부터 · 속마음", go: () => { state.idx = 11; show("q"); } },
-  { label: "마지막", sub: "예수님의 밸런스게임", go: () => show("end") }
+  { label: "마지막", sub: "머뭇거리는 이유 · 기도제목", go: () => show("end") }
 ];
 jumps.forEach((j) => {
   const b = document.createElement("button");
